@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
+  const { createNewUser, setUser } = useContext(AuthContext);
+
   const handleRegister = e => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -8,6 +12,16 @@ const Register = () => {
     const photo = e.target.photo.value;
     const password = e.target.password.value;
     console.log(name, email, photo, password);
+    e.target.reset();
+
+    createNewUser(email, password)
+      .then(result => {
+        setUser(result.user);
+        console.log(result.user);
+      })
+      .catch(error => {
+        console.log('ERROR', error.message);
+      });
   };
 
   return (
