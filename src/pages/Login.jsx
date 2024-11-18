@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Login = () => {
   const { userLogin, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = e => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const Login = () => {
       .then(result => {
         setUser(result.user);
         console.log(result.user);
+        navigate('/');
       })
       .catch(error => {
         console.log('ERROR', error.message);
@@ -56,9 +58,7 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <Link to={'/'} className="btn btn-primary ">
-                Login
-              </Link>
+              <button className="btn btn-primary ">Login</button>
             </div>
           </form>
           <p className="text-sm text-center">
