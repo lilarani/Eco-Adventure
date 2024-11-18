@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <header>
       <div className="navbar bg-base-100">
@@ -24,14 +27,17 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-base font-semibold"
             >
               <li>
-                <a>Item 1</a>
+                <NavLink to={'/'}>Home</NavLink>
+              </li>
+              <li>
+                <NavLink to={'/update'}>Update Profile</NavLink>
               </li>
 
               <li>
-                <a>Item 3</a>
+                <NavLink to={'/login'}>Login</NavLink>
               </li>
             </ul>
           </div>
@@ -40,16 +46,20 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <NavLink>Update Profile</NavLink>
+              <NavLink to={'/'}>Home</NavLink>
+            </li>
+            <li>
+              <NavLink to={'/update'}>Update Profile</NavLink>
             </li>
 
             <li>
-              <a>Item 3</a>
+              <NavLink to={'/login'}>Login</NavLink>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
           <a className="btn">User profile</a>
+          <h2>{user && user.name}</h2>
         </div>
       </div>
     </header>
