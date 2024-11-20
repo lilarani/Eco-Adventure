@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
+
 const Card = ({ adventure }) => {
-  console.log(adventure);
-  const { title, image, ecoFriendlyFeatures: feature } = adventure;
+  const { id, title, image, ecoFriendlyFeatures: feature } = adventure;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3">
+    <div className="">
       <div className="card card-compact bg-base-100 w-full shadow-xl">
         <figure>
           <img
@@ -15,7 +16,12 @@ const Card = ({ adventure }) => {
           <h2 className="card-title">{title}</h2>
           <p>{feature}</p>
           <div className="card-actions">
-            <button className="btn btn-primary">Explore Now</button>
+            <Link
+              to={`/details/${id}`}
+              className="px-3 py-1 bg-sky-200 font-bold"
+            >
+              Explore Now
+            </Link>
           </div>
         </div>
       </div>

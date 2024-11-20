@@ -1,9 +1,38 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Register = () => {
-  const { createNewUser, setUser } = useContext(AuthContext);
+  const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [passwordError, setPasswordError] = useState('');
+
+  const validatePassword = password => {
+    let hasUppercase = false;
+    let hasLowercase = false;
+
+    for (const char of password) {
+      if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+        hasUppercase = true;
+      }
+      if (char === char.toLowerCase() && char !== char.toUpperCase()) {
+        hasLowercase = true;
+      }
+    }
+    // Check for conditions
+    if (!hasUppercase) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!hasLowercase) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (password.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+
+    return '';
+  };
 
   const handleRegister = e => {
     e.preventDefault();
@@ -12,15 +41,33 @@ const Register = () => {
     const photo = e.target.photo.value;
     const password = e.target.password.value;
     console.log(name, email, photo, password);
-    e.target.reset();
+
+    // Validate password
+    const error = validatePassword(password);
+    if (error) {
+      setPasswordError(error);
+      return;
+    }
+    setPasswordError('');
 
     createNewUser(email, password)
       .then(result => {
-        setUser(result.user);
         console.log(result.user);
+
+        updateUserProfile(name, photo)
+          .then(() => {
+            setUser({ ...result.user, displayName: name, photoURL: photo });
+            navigate('/');
+            toast.success(`Registration Successful!`);
+          })
+          .catch(error => {
+            console.error('ERROR', error.message);
+            toast.error('Profile update failed');
+          });
       })
       .catch(error => {
         console.log('ERROR', error.message);
+        toast.error(`Registration Failed: ${error.message}`);
       });
   };
 
@@ -77,6 +124,9 @@ const Register = () => {
                 className="input input-bordered"
                 required
               />
+              {passwordError && (
+                <p className="text-red-500 text-sm mt-2">{passwordError}</p>
+              )}
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary ">Register</button>

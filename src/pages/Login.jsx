@@ -1,9 +1,12 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import { signInWithPopup } from 'firebase/auth';
+import { auth } from '../firebase.config';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-  const { userLogin, setUser } = useContext(AuthContext);
+  const { userLogin, setUser, googleProvider } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = e => {
@@ -16,6 +19,19 @@ const Login = () => {
     userLogin(email, password)
       .then(result => {
         setUser(result.user);
+        console.log(result.user);
+        toast.success('login success');
+        result.user ? navigate('/') : navigate('/login');
+      })
+      .catch(error => {
+        console.log('ERROR', error.message);
+        toast.error('Failed login');
+      });
+  };
+
+  const loginWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then(result => {
         console.log(result.user);
         navigate('/');
       })
@@ -61,17 +77,18 @@ const Login = () => {
               <button className="btn btn-primary ">Login</button>
             </div>
           </form>
+          <button
+            onClick={loginWithGoogle}
+            className="w-full  py-1 bg-slate-300 font-semibold"
+          >
+            Login with Google
+          </button>
           <p className="text-sm text-center">
             Dont't Have an Account?
             <Link to={'/register'} className="text-blue-500 ml-2 underline">
               Register
             </Link>
           </p>
-          <div className="flex justify-center py-3">
-            <button className="px-3 py-1 bg-slate-300 font-semibold">
-              Google
-            </button>
-          </div>
         </div>
       </div>
     </div>
