@@ -15,29 +15,19 @@ const Navbar = () => {
   };
 
   const links = (
-    <>
-      <ul className="flex flex-col md:flex-row gap-3 text-base font-medium">
-        <li>
-          <NavLink to={'/'}>Home</NavLink>
-        </li>
+    <ul className="flex flex-col md:flex-row gap-3 text-base font-medium">
+      <li>
+        <NavLink to={'/'}>Home</NavLink>
+      </li>
 
-        {user && (
-          <>
-            <li>
-              <NavLink to={'/update'}>Update Profile</NavLink>
-            </li>
-          </>
-        )}
+      <li>
+        <NavLink to={'/update'}>Update Profile</NavLink>
+      </li>
 
-        {user && (
-          <>
-            <li>
-              <NavLink to={'/profile'}>My Profile</NavLink>
-            </li>
-          </>
-        )}
-      </ul>
-    </>
+      <li>
+        <NavLink to={'/profile'}>My Profile</NavLink>
+      </li>
+    </ul>
   );
 
   return (

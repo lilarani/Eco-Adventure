@@ -32,11 +32,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="my-24 w-8/12 mx-auto">
+    <div className="my-24 w-8/12 mx-auto ">
       <h2 className="font-bold text-2xl text-center ">Contact with Us</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-32 mt-20 gap-5">
-          <div className="space-y-3">
+          <div className="space-y-6">
             <h2 className="border-b-2 border-green-800 w-32 text-lg font-semibold">
               Contact-Form
             </h2>
@@ -49,6 +49,7 @@ const Contact = () => {
                 className="border-2 p-2 focus:outline-none focus:border-green-800 focus:shadow-sm "
                 type="text"
                 name="name"
+                placeholder="enter your name"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -62,6 +63,7 @@ const Contact = () => {
                 className="border-2 p-2 focus:outline-none focus:border-sky-300 focus:shadow-sm"
                 type="text"
                 name="email"
+                placeholder="enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -75,6 +77,7 @@ const Contact = () => {
                 className="border-2 p-2 focus:outline-none focus:border-sky-300 focus:shadow-sm"
                 type="text"
                 name="subject"
+                placeholder="subject"
                 value={formData.subject}
                 onChange={handleChange}
               />
@@ -84,6 +87,7 @@ const Contact = () => {
                 className="border-2 p-2 focus:outline-none focus:border-green-800 focus:shadow-sm"
                 type="text"
                 name="phone"
+                placeholder="phone number"
                 value={formData.phone}
                 onChange={handleChange}
               />
@@ -92,6 +96,7 @@ const Contact = () => {
                 cols={30}
                 rows={8}
                 name="message"
+                placeholder="write message"
                 className="border-2 focus:outline-none focus:border-green-800 focus:shadow-sm"
                 value={formData.message}
                 onChange={handleChange}
