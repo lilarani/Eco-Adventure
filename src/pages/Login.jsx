@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-base-200 min-h-screen p-3">
       <div className="hero-content flex-col lg:flex-row-reverse ">
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
           <form onSubmit={handleLogin} className="card-body">
@@ -96,16 +96,16 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary ">Login</button>
+              <button className="btn bg-green-800 text-white">Login</button>
             </div>
           </form>
           <button
             onClick={loginWithGoogle}
-            className="w-full  py-1 bg-slate-100 font-semibold"
+            className="w-full py-1  bg-slate-100 font-semibold"
           >
             Login with Google
           </button>
-          <p className="text-sm text-center">
+          <p className="text-sm text-center mt-3">
             Dont't Have an Account?
             <Link to={'/register'} className="text-blue-500 ml-2 underline">
               Register
