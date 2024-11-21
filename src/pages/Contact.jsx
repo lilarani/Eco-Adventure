@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IoMdCall } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
+import 'aos/dist/aos.css';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,14 @@ const Contact = () => {
 
   return (
     <div className="my-24 container mx-auto ">
-      <h2 className="font-bold text-2xl text-center">Contact with Us</h2>
+      <h2
+        className="font-bold text-2xl text-center"
+        data-aos="fade-right"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine"
+      >
+        Contact with Us
+      </h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-32 mt-20 gap-5">
           <div className="space-y-6">

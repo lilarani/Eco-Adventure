@@ -2,7 +2,11 @@ const Faq = () => {
   return (
     <div className="container mx-auto">
       <div className="p-4 bg-base-100 rounded-none">
-        <h1 className="text-3xl font-bold text-center mb-6 rounded-none">
+        <h1
+          data-aos="fade-up"
+          data-aos-anchor-placement="center-bottom"
+          className="text-3xl font-bold text-center mb-6 rounded-none"
+        >
           Eco Adventure FAQ
         </h1>
 

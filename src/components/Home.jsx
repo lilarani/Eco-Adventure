@@ -17,7 +17,9 @@ const Home = () => {
       <Banner></Banner>
       <div className="my-24 container mx-auto">
         <h2
-          data-aos="zoom-in-up"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
           className="text-2xl font-bold text-center py-4"
         >
           Eco Adventure Features
