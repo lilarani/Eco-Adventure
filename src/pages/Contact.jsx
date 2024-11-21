@@ -32,8 +32,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="my-24 w-8/12 mx-auto ">
-      <h2 className="font-bold text-2xl text-center ">Contact with Us</h2>
+    <div className="my-24 container mx-auto ">
+      <h2 className="font-bold text-2xl text-center">Contact with Us</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-32 mt-20 gap-5">
           <div className="space-y-6">

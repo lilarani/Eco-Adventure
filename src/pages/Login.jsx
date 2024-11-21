@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import { sendPasswordResetEmail, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase.config';
@@ -11,6 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
   const emailRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+  let location = useLocation();
+  let visit = location.state;
 
   const handleLogin = e => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Login = () => {
       .then(result => {
         setUser(result.user);
         toast.success('login success');
-        result.user ? navigate('/') : navigate('/login');
+        navigate(visit ? visit : '/');
       })
       .catch(error => {
         toast.error('Failed login');
@@ -33,7 +35,7 @@ const Login = () => {
     signInWithPopup(auth, googleProvider)
       .then(result => {
         toast.success(`Login successfully`);
-        navigate('/');
+        navigate(visit ? visit : '/');
       })
       .catch(error => {
         toast.error('ERROR', error.message);
