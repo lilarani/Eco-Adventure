@@ -31,7 +31,7 @@ const Detail = ({ detail }) => {
   };
   return (
     <div
-      className="flex gap-10 
+      className="flex flex-col md:flex-row gap-10 
       container mx-auto my-24"
     >
       <div>

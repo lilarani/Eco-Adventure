@@ -39,8 +39,8 @@ const Contact = () => {
       </Helmet>
       <h2 className="font-bold text-2xl text-center ">Contact with Us</h2>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-12 mt-20 gap-32">
-          <div className="col-span-5 space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-32 mt-20 gap-5">
+          <div className="space-y-3">
             <h2 className="border-b-2 border-green-800 w-32 text-lg font-semibold">
               Contact-Form
             </h2>
@@ -109,7 +109,7 @@ const Contact = () => {
             </button>
           </div>
 
-          <div className=" col-span-6 mt-3 ">
+          <div className=" mt-3 ">
             <h3 className="text-xl font-semibold border-b-2 border-green-800 w-20">
               Contact
             </h3>

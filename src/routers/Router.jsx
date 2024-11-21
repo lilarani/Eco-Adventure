@@ -22,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/update',
-        element: <UpdateProfile></UpdateProfile>,
+        element: (
+          <PrivetRoute>
+            <UpdateProfile></UpdateProfile>,
+          </PrivetRoute>
+        ),
       },
       {
         path: '/login',
