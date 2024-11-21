@@ -2,6 +2,9 @@ import { useLoaderData } from 'react-router-dom';
 import Card from './Card';
 import Banner from './Banner';
 import { Helmet } from 'react-helmet-async';
+import Faq from '../pages/Faq';
+import Contact from '../pages/Contact';
+import 'aos/dist/aos.css';
 
 const Home = () => {
   const adventureData = useLoaderData();
@@ -13,7 +16,10 @@ const Home = () => {
       </Helmet>
       <Banner></Banner>
       <div className="my-24 container mx-auto">
-        <h2 className="text-2xl font-bold text-center py-4">
+        <h2
+          data-aos="fade-right"
+          className="text-2xl font-bold text-center py-4"
+        >
           Eco Adventure Features
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-4">
@@ -22,6 +28,9 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+      <Faq></Faq>
+      <Contact></Contact>
     </div>
   );
 };

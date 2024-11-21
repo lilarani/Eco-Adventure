@@ -18,7 +18,7 @@ const Card = ({ adventure }) => {
           <div className="card-actions">
             <Link
               to={`/details/${id}`}
-              className="px-3 py-1 bg-sky-200 font-bold"
+              className="px-3 py-1 bg-green-800 text-white/90 font-bold"
             >
               Explore Now
             </Link>

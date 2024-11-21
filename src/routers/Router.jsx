@@ -7,13 +7,15 @@ import Register from '../pages/Register';
 import AdventureDetails from '../pages/AdventureDetails';
 import MyProfile from '../pages/MyProfile';
 import PrivetRoute from './PrivetRoute';
-import AboutUs from '../pages/AboutUs';
 import Contact from '../pages/Contact';
+import Faq from './../pages/Faq';
+import ErrorPage from '../pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/',
@@ -37,8 +39,8 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: '/about',
-        element: <AboutUs></AboutUs>,
+        path: '/faq',
+        element: <Faq></Faq>,
       },
       {
         path: '/contact',

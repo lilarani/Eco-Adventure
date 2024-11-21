@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { IoMdCall } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 
@@ -34,9 +33,6 @@ const Contact = () => {
 
   return (
     <div className="my-24 w-8/12 mx-auto">
-      <Helmet>
-        <title>Eco Adventure | Contact</title>
-      </Helmet>
       <h2 className="font-bold text-2xl text-center ">Contact with Us</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-32 mt-20 gap-5">
