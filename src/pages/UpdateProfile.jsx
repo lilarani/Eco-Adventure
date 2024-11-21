@@ -1,103 +1,94 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { FaCamera } from 'react-icons/fa';
 import { AuthContext } from '../provider/AuthProvider';
 import toast from 'react-hot-toast';
-import { updateEmail } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateProfile = () => {
+  const navigate = useNavigate();
+
   const { user, updateUserProfile } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
+  const [update, setUpdate] = useState({
     name: user?.displayName || '',
-    email: user?.email || '',
     photoURL: user?.photoURL || '',
   });
 
-  const updateUserEmail = email => {
-    return updateEmail(auth.currentUser, email);
-  };
-
   const handleChange = e => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUpdate({ ...update, [name]: value });
+    e.target.reset();
   };
 
   const handleUpdate = () => {
-    if (!formData.name || !formData.photoURL || !formData.email) {
-      toast.error('Name, email and Photo URL cannot be empty!');
+    if (!update.name || !update.photoURL) {
+      toast.error('Name and Photo URL cannot be empty!');
       return;
     }
 
-    updateUserProfile(formData.name, formData.photoURL)
+    updateUserProfile(update.name, update.photoURL)
       .then(() => {
         toast.success(`Profile updated successfully!`);
-        setFormData({
-          name: '',
-          email: '',
-          photoURL: '',
-        });
+        e.target.reset();
+        navigate('/profile');
       })
-      .catch(error => {
+      .catch(() => {
         toast.error(`Failed to update profile!`);
-      });
-
-    updateUserEmail(formData.email)
-      .then(() => {
-        toast.error('email updated successfully');
-      })
-      .catch(error => {
-        toast.error('Failed to update email');
       });
   };
 
   return (
-    <div className="my-8 w-8/12 mx-auto">
-      <div className="grid grid-cols-12 mt-3 gap-8">
-        <div className="border-r-2 col-span-3">
-          <img
-            className="w-20 rounded-full"
-            src={user && user?.photoURL}
-            alt=""
-          />
-          <h2 className="font-bold text-lg">{user && user?.displayName}</h2>
-          <p>{user && user?.email}</p>
+    <div className="flex flex-col justify-center items-center my-12 p-2">
+      <Helmet>
+        <title>Eco Adventure | update-profile</title>
+      </Helmet>
+      <div className="card flex flex-col items-center justify-center card-compact bg-base-100 w-96 shadow-xl">
+        <div className="border-2 rounded-full w-32 h-32 relative">
+          <figure>
+            {user && user?.photoURL ? (
+              ''
+            ) : (
+              <p className="absolute left-3 top-4">Profile</p>
+            )}
+            <FaCamera className="absolute bottom-3 right-0 w-12 cursor-pointer" />
+            <img
+              className="w-full h-32 rounded-full"
+              src={user && user?.photoURL}
+            />
+          </figure>
         </div>
-
-        <div className="col-span-9 space-y-3">
-          <h2 className="font-bold text-xl">Update your Profile</h2>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="name">Name</label>
+        <form onSubmit={handleUpdate} className="card-body">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
             <input
               className="border-2 p-2"
               type="text"
               placeholder="name"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-
-            <label htmlFor="email">Email</label>
-            <input
-              className="border-2 p-2"
-              type="text"
-              placeholder="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-
-            <label htmlFor="photoURL">Photo-URL</label>
-            <input
-              className="border-2 p-2"
-              type="text"
-              placeholder="photo-url"
-              name="photoURL"
-              value={formData.photoURL}
               onChange={handleChange}
             />
           </div>
-          <button onClick={handleUpdate} className="px-3 py-1 bg-gray-200">
-            Save Changes
-          </button>
-        </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Photo-URL</span>
+            </label>
+            <input
+              className="border-2 p-2 "
+              type="text"
+              placeholder="photo-url"
+              name="photoURL"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-control mt-6 ">
+            <button type="submit" className="btn btn-primary">
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

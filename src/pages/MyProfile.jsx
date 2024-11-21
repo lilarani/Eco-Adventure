@@ -1,11 +1,16 @@
 import { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { NavLink } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
+
   return (
     <div className="flex flex-col justify-center items-center my-20 space-y-2">
+      <Helmet>
+        <title>Eco Adventure | my-profile</title>
+      </Helmet>
       <h1 className="text-3xl font-bold">My Profile</h1>
       <h2 className="font-semibold text-xl mb-4">
         Welcome, {user.displayName}

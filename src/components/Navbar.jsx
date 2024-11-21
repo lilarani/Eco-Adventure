@@ -1,9 +1,18 @@
 import { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
+import logo from '../assets/images/logo.png';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
+
+  let logOutUser = () => {
+    logOut();
+    toast.success('sign-out successfull');
+    navigate('/register');
+  };
 
   const links = (
     <>
@@ -30,23 +39,13 @@ const Navbar = () => {
         <li>
           <NavLink to={'/contact'}>Contact</NavLink>
         </li>
-
-        {user && user?.email ? (
-          <button onClick={logOut} className="px-3 py-1 bg-gray-200">
-            Log-Out
-          </button>
-        ) : (
-          <Link to={'/login'} className="px-3 py-1 bg-gray-200">
-            Login
-          </Link>
-        )}
       </ul>
     </>
   );
 
   return (
     <header>
-      <div className="navbar bg-base-100 py-4">
+      <div className="navbar bg-base-100 shadow-sm ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,19 +71,38 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="text-xl font-bold">Eco Adventure</a>
+          <img className="w-44" src={logo} alt="" />
         </div>
         <div className="navbar-center hidden lg:flex ">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          {/* <a className="btn">{user.photoURL}</a> */}
-          <img
-            className="w-10 rounded-full mr-1"
-            src={user && user?.photoURL}
-            alt=""
-          />
-          <h2 className="font-semibold text-base">{user && user.email}</h2>
+          <div className="relative group">
+            <img
+              className="w-14 rounded-full mr-2"
+              src={user && user?.photoURL}
+              alt=""
+            />
+
+            <h2 className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute left-0 text-base font-bold">
+              {user && user?.displayName}
+            </h2>
+          </div>
+
+          <div className="flex gap-6 items-center">
+            {/* <h2 className="font-semibold text-base">{user && user.email} </h2> */}
+            <div className="bg-gray-300 font-bold text-lg ml-3">
+              {user && user?.email ? (
+                <button onClick={logOutUser} className="px-3 py-1 ">
+                  Log-Out
+                </button>
+              ) : (
+                <Link to={'/login'} className="px-3 py-1 ">
+                  Login
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </header>

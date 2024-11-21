@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { IoMdCall } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 
@@ -20,7 +21,7 @@ const Contact = () => {
   // Handle form submission
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formData);
+
     alert('Form submitted successfully!');
     setFormData({
       name: '',
@@ -33,11 +34,14 @@ const Contact = () => {
 
   return (
     <div className="my-24 w-8/12 mx-auto">
+      <Helmet>
+        <title>Eco Adventure | Contact</title>
+      </Helmet>
       <h2 className="font-bold text-2xl text-center ">Contact with Us</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-12 mt-20 gap-32">
           <div className="col-span-5 space-y-3">
-            <h2 className="border-b-2 border-sky-500 w-32 text-lg font-semibold">
+            <h2 className="border-b-2 border-green-800 w-32 text-lg font-semibold">
               Contact-Form
             </h2>
             <div className="flex flex-col gap-2 text-base font-semibold">
@@ -46,7 +50,7 @@ const Contact = () => {
                 <span className="text-red-500 font-bold ml-2">*</span>
               </label>
               <input
-                className="border-2 p-2 focus:outline-none focus:border-sky-300 focus:shadow-sm"
+                className="border-2 p-2 focus:outline-none focus:border-green-800 focus:shadow-sm "
                 type="text"
                 name="name"
                 value={formData.name}
@@ -81,7 +85,7 @@ const Contact = () => {
 
               <label htmlFor="phone">Phone Number</label>
               <input
-                className="border-2 p-2 focus:outline-none focus:border-sky-300 focus:shadow-sm"
+                className="border-2 p-2 focus:outline-none focus:border-green-800 focus:shadow-sm"
                 type="text"
                 name="phone"
                 value={formData.phone}
@@ -92,32 +96,32 @@ const Contact = () => {
                 cols={30}
                 rows={8}
                 name="message"
-                className="border-2 focus:outline-none focus:border-sky-300 focus:shadow-sm"
+                className="border-2 focus:outline-none focus:border-green-800 focus:shadow-sm"
                 value={formData.message}
                 onChange={handleChange}
               ></textarea>
             </div>
             <button
               type="submit"
-              className="px-3 py-1 bg-sky-500 font-semibold text-base text-white"
+              className="px-3 py-1 bg-green-800 font-semibold text-base text-white"
             >
               Send Message
             </button>
           </div>
 
           <div className=" col-span-6 mt-3 ">
-            <h3 className="text-xl font-semibold border-b-2 border-sky-500 w-20">
+            <h3 className="text-xl font-semibold border-b-2 border-green-800 w-20">
               Contact
             </h3>
 
             <div className="py-6 ">
               <h2 className="font-semibold text-lg">Dhaka, Bangladesh</h2>
-              <p className="underline cursor-pointer text-blue-500 flex font-semibold items-center gap-2">
+              <p className="underline cursor-pointer text-green-800 flex font-semibold items-center gap-2">
                 <MdEmail />
-                ecoadventure@gmail.com
+                {/* ecoadventure@gmail.com */}
               </p>
               <p className="flex items-center gap-2 font-semibold">
-                <IoMdCall /> 0133440000
+                <IoMdCall />
               </p>
             </div>
           </div>

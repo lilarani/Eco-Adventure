@@ -1,12 +1,16 @@
 import { useLoaderData } from 'react-router-dom';
 import Card from './Card';
 import Banner from './Banner';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
   const adventureData = useLoaderData();
 
   return (
     <div>
+      <Helmet>
+        <title>Eco Adventure | Home</title>
+      </Helmet>
       <Banner></Banner>
       <div className="my-24 container mx-auto">
         <h2 className="text-2xl font-bold text-center py-4">

@@ -4,7 +4,7 @@ import Detail from '../components/Detail';
 
 const AdventureDetails = () => {
   const { id } = useParams();
-  console.log(id);
+
   const data = useLoaderData();
 
   const adventureDetails = data.find(
@@ -14,6 +14,10 @@ const AdventureDetails = () => {
   return (
     <div>
       <Banner></Banner>
+
+      <h2 className="text-center font-bold mt-12 text-3xl">
+        Eco Adventure Details
+      </h2>
 
       {adventureDetails ? (
         <Detail key={adventureDetails.id} detail={adventureDetails}></Detail>

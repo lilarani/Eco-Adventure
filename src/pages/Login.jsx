@@ -1,30 +1,30 @@
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
-import { signInWithPopup } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import toast from 'react-hot-toast';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const { userLogin, setUser, googleProvider } = useContext(AuthContext);
   const navigate = useNavigate();
+  const emailRef = useRef();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = e => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
     e.target.reset();
 
     userLogin(email, password)
       .then(result => {
         setUser(result.user);
-        console.log(result.user);
         toast.success('login success');
         result.user ? navigate('/') : navigate('/login');
       })
       .catch(error => {
-        console.log('ERROR', error.message);
         toast.error('Failed login');
       });
   };
@@ -32,17 +32,29 @@ const Login = () => {
   const loginWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then(result => {
-        console.log(result.user);
+        toast.success(`Login successfully`);
         navigate('/');
       })
       .catch(error => {
-        console.log('ERROR', error.message);
+        toast.error('ERROR', error.message);
       });
   };
+
+  const handleForgetPassword = e => {
+    const email = emailRef.current.value;
+    if (!email) {
+      toast.error('Please provide a valid email address');
+    } else {
+      sendPasswordResetEmail(auth, email).then(() => {
+        toast.success(`Password Reset email sent, please check your email`);
+      });
+    }
+  };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse ">
-        <div className="card bg-base-100 w-full max-w-lg shrink-0 shadow-2xl">
+        <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -51,23 +63,31 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
+                ref={emailRef}
                 placeholder="email"
                 className="input input-bordered"
                 required
               />
             </div>
-            <div className="form-control">
+
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
+                <button
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute top-12 right-2"
+                >
+                  {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye />}
+                </button>
               </label>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="password"
                 name="password"
                 className="input input-bordered"
                 required
               />
-              <label className="label">
+              <label onClick={handleForgetPassword} className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
                 </a>
@@ -79,7 +99,7 @@ const Login = () => {
           </form>
           <button
             onClick={loginWithGoogle}
-            className="w-full  py-1 bg-slate-300 font-semibold"
+            className="w-full  py-1 bg-slate-100 font-semibold"
           >
             Login with Google
           </button>

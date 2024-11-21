@@ -2,11 +2,14 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import toast from 'react-hot-toast';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState('');
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const validatePassword = password => {
     let hasUppercase = false;
@@ -40,7 +43,6 @@ const Register = () => {
     const email = e.target.email.value;
     const photo = e.target.photo.value;
     const password = e.target.password.value;
-    console.log(name, email, photo, password);
 
     // Validate password
     const error = validatePassword(password);
@@ -52,8 +54,6 @@ const Register = () => {
 
     createNewUser(email, password)
       .then(result => {
-        console.log(result.user);
-
         updateUserProfile(name, photo)
           .then(() => {
             setUser({ ...result.user, displayName: name, photoURL: photo });
@@ -61,12 +61,12 @@ const Register = () => {
             toast.success(`Registration Successful!`);
           })
           .catch(error => {
-            console.error('ERROR', error.message);
+            toast.error('ERROR', error.message);
             toast.error('Profile update failed');
           });
       })
       .catch(error => {
-        console.log('ERROR', error.message);
+        toast.log('ERROR', error.message);
         toast.error(`Registration Failed: ${error.message}`);
       });
   };
@@ -113,12 +113,18 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
+                <button
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute top-12 right-2"
+                >
+                  {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye />}
+                </button>
               </label>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
