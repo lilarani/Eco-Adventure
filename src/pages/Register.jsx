@@ -61,12 +61,10 @@ const Register = () => {
             toast.success(`Registration Successful!`);
           })
           .catch(error => {
-            toast.error('ERROR', error.message);
             toast.error('Profile update failed');
           });
       })
       .catch(error => {
-        toast.error('ERROR', error.message);
         toast.error(`Registration Failed: ${error.message}`);
       });
   };
